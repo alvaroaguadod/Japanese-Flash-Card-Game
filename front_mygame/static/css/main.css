@@ -1,0 +1,166 @@
+/* This is the CSS code for the Index*/
+html,
+body {
+  height: 100%;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-image: url("../images/samurai_woman_dressico.jpg")!important;
+    background-size: cover;
+    background-color: #f5f5f5;
+    background-repeat: no-repeat;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+
+
+h1{
+  color: #f60d38!important;
+  font-size: xx-large!important;
+  margin-bottom: 8px; 
+}
+
+
+.form-signin {
+  background-color: rgb(245 245 245 / 95%);  
+  max-width: 330px;
+  padding: 15px;
+  border-radius: 8%;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+
+.Forgot{
+  color: #f60d38;
+  display: inline-block;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.Forgot:hover{
+  color: #020202;
+  font-weight: bold;
+}
+
+.account{
+  display: inline-flex;
+  gap: 8px;
+}
+
+.Register{
+  color: #f60d38;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.Register:hover{
+  color: #020202;
+  font-weight: bold;
+  font-size: large;
+}
+
+/*forgot.html*/
+
+.Recover{
+  margin-bottom: -0.5rem;
+  font-size: 28px!important;
+}
+
+.form-recover {
+  background-color: rgb(245 245 245 / 95%);  
+  max-width: 330px;
+  padding: 15px;
+  border-radius: 8%;
+}
+
+.form-recover input[type="email"] {
+  margin-bottom: 2px;
+}
+
+.Enter{
+  font-size: 0.9rem;
+}
+
+.botones{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.index_p{
+  margin-top: 1rem;
+  margin-bottom: -0.5rem;
+}
+
+
+.index_a:hover:after{
+  content: "行くよ！";
+  -webkit-text-stroke: 2px black;
+  color: #15f60d;
+  display: inline-block;
+  font-size: x-large;
+  font-weight: bolder;
+  padding-left: 0.5em;
+}
+
+
+/*register.html*/
+
+.infoPerson{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 6px;
+  column-gap: 4px;
+}
+
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 6;
+  border-bottom-left-radius: 6;
+}
+
+.nacimiento_p{
+  display: flex;
+  flex-direction: row;
+  font-size: smaller;
+  margin-bottom: 0.5rem;
+}
+
+.nacimiento{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.politiqueos{
+  display: flex;
+  margin-top: 7px;
+  margin-bottom: 1rem;
+  font-size: xx-small;
+  flex-wrap: wrap;
+  margin-left: 30px;
+}
