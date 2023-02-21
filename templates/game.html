@@ -1,0 +1,82 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/game.css'%}">
+    <title>Play to Learn</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" 
+    crossorigin="anonymous">
+</head>
+<body class="text-center">  
+    <main class="form-game w-100 m-auto">
+        <form>
+            <h1 style="margin-bottom: 0.5rem;">Kanji Tester</h1>
+            <p>Let's test your skills. がんばって!</p>
+            
+            <div class= "game-board">
+                <div class="box">
+                    <h6>Score</h6>
+                    <p class="correct">Correct: {{score}}</p>
+                    <a href="{% url 'logout' %}" class="Logout">Logout</a>
+                </div>
+
+                <div class="box">                    
+                    <div class="flashcard-section">
+                        <h6>Flashcards</h6>
+                        <div id="flashcards">                         
+                            {% for flashcard in flashcards %}
+                            <div class="flashcard">
+                                {{ flashcard.question }}
+                                {{ flashcard.answer }}
+                            </div>
+                            {% endfor %}                        
+                        </div>
+                    </div>      
+                </div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                
+                <div class="box">
+                    <div class="botonesJuegoLeft">
+                        <button class="botonJuego" id="word1" onclick="incrementScore('{{err1}}')">{{err1}}</p>
+                        <button class="botonJuego" id="word2" onclick="incrementScore('{{err2}}')">{{err2}}</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="botonesJuegoRight">
+                        <button class="botonJuego"id="word3" onclick="incrementScore('{{err3}}')">{{err3}}</p>
+                        <button class="botonJuego" id="word4" onclick="incrementScore('{{wins}}')">{{wins}}</p>
+                    </div>
+                </div>
+                <div class="box"></div>
+            </div> 
+            <p class="AlvaRonin">&copy; AlvaRonin 2023</p>
+        </form>
+    </main>
+    <script>
+        function incrementScore(selectedWord) {
+            console.log('Incrementando Score')
+            console.log(selectedWord)
+            //let href = '/game/?selected_word=' + selectedWord
+            let href = '/game/?selected_word=' + selectedWord
+            console.log(href)
+            window.location.href = href
+            window.alert(href)
+        }
+    </script>
+</body>
+</html>

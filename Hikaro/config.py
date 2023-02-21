@@ -1,0 +1,5 @@
+DB_NAME = 'Hikaro'
+DB_USER = 'alvaronin'
+DB_PASSWORD = '123'
+DB_HOST = '127.0.0.1'
+DB_PORT = '8000'
