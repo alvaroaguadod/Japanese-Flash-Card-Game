@@ -3,7 +3,7 @@ Project to practice Backend with Django and Frontend with HTML, CSS and JS. I wo
 
 This is the final project of the Python Backend Bootcamp taught by códigofacilito.
 
-![Screenshot](https://github.com/alvaroaguadod/Fullstack-Imager/blob/main/Screenshot%20Fullstack%20Imager.png)
+![Screenshot]([https://github.com/alvaroaguadod/Fullstack-Imager/blob/main/Screenshot%20Fullstack%20Imager.png](https://github.com/alvaroaguadod/Japanese-Flash-Card-Game/blob/main/%E3%81%AF%E3%81%98%E3%82%81%E3%81%AE%E4%B8%80%E6%AD%A9%20nunca%20rendirse.png)
 
 # Demo 
 
