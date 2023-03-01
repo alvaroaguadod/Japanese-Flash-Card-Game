@@ -19,12 +19,12 @@ from . import views
 
 urlpatterns = [
     path('forgot/', views.forgot, name= 'forgot'),
-    path('game/', views.game, name= 'game'),    
+    path('game/', views.game, name= 'game'), 
+    path('api/user', views.get_user, name='get_user'),   
     path('', views.login_view, name= 'login'),
     path('', views.logout_view, name= 'logout'),
-    path('register2/', views.register2, name= 'register2'),
     path('register/', views.register, name= 'register'),
     path('study/', views.study, name= 'study'),
     path('upload/', views.upload, name= 'upload'),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls)
 ]

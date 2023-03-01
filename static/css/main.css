@@ -9,7 +9,7 @@ body {
     align-items: center;
     padding-top: 40px;
     padding-bottom: 40px;
-    background-image: url("../images/samurai_woman_dressico.jpg")!important;
+    background-image: url("../images/hajimenoippo.jpg")!important;
     background-size: cover;
     background-color: #f5f5f5;
     background-repeat: no-repeat;
@@ -25,6 +25,10 @@ h1{
   margin-bottom: 8px; 
 }
 
+.h5, h5 {
+  font-size: 1.25rem;
+  margin-bottom: 2.2rem;
+}
 
 .form-signin {
   background-color: rgb(245 245 245 / 95%);  
@@ -63,7 +67,6 @@ h1{
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
 
 .Forgot{
   color: #f60d38;
@@ -113,7 +116,7 @@ h1{
 /*forgot.html*/
 
 .Recover{
-  margin-bottom: -0.5rem;
+  margin-bottom: 1.5rem;
   font-size: 28px!important;
 }
 
@@ -128,8 +131,15 @@ h1{
   margin-bottom: 2px;
 }
 
+
+.form-control-password{
+  width: 70%;
+}
+
+
 .Enter{
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  margin-bottom: 1.2rem;
 }
 
 .botones{
@@ -155,7 +165,6 @@ h1{
   padding-left: 0.5em;
 }
 
-
 /*register.html*/
 
 .infoPerson{
@@ -163,7 +172,6 @@ h1{
   flex-direction: column;
   margin-bottom: -60px;
 }
-
 
 .nacimiento_p{
   display: flex;
@@ -202,10 +210,10 @@ h1{
   border: var(--bs-border-width) solid var(--bs-border-color);
 }
 
-.AlvaRonin{
+/*.AlvaRonin{
   --bs-text-opacity: 1;
   color: var(--bs-secondary-color)!important;
   margin-bottom: 1rem!important;
-}
+}*/
 
 

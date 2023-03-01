@@ -7,56 +7,103 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'css/upload.css'%}">  <title>Uploader</title>
+  <link rel="icon" href="{% static 'images/boxglove.png'%}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
   rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" 
   crossorigin="anonymous">
 </head>
 <body class="text-center">
   
-<main class="form-upload w-100 m-auto">
-    <form>
-    <h1 style="margin-bottom: 1.5rem;">Kanji Uploader</h1>
-    <p>Your help is greatly appreciated.</p>  
-
-    <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">English Word</label>
-    </div>    
-
-    <p class="japarea">Complete in Japanese the following fields</p>  
-
-    <div class="infoKanji">
-        <div class="form-floating">
-            <input type="Hiragana" class="form-control" id="floatingPassword" placeholder="Hiragana">
-            <label for="floatingPassword">Hiragana</label>
-        </div>    
-        <div class="form-floating">
-            <input type="Sentence" class="form-control" id="floatingPassword" placeholder="Sentence">
-            <label for="floatingPassword">Sentence</label>
+<main style="transform: scale(0.8);max-height: fit-content;" class="form-upload w-100 m-auto">
+  <!--form onsubmit="return validateForm()"-->
+  <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h1 style="margin-bottom: 1.5rem;">Quiz Uploader</h1>
+    <h5>Your help is greatly appreciated.</h5>  
+    <p>Please complete with a sentence that contains<br>one of the following particles.</p>
+    <p>'は', 'が', 'を', 'も', 'に', 'へ', 'で', 'から'</p>
+    <p>'まで', 'と', 'や', 'の', 'ね', 'よ'</p>  
+    <div id="json-response"></div>
+    <div class="infoNihongo">
+      <div class="form-floating" style="margin-bottom: 0.75em;">
+          <input type="text" class="form-control" id="japsentence" name="japanese_sentence" placeholder="Japanese Sentence">
+          <label for="japsentence"> 文 (Japanese Sentence)</label>
+          <button id="check-btn">Check</button>
+      </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="engmeaning" name="english_meaning" placeholder="Meaning">
+        <label for="engmeaning">English Meaning</label>
+      </div>    
+      <div id="file-name"></div>
+      <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+      <div class="file-upload">
+        <div class="image-upload-wrap">
+          <input class="file-upload-input" type='file' name="image_file" accept="image/*" />
+          <div class="drag-text">
+            <h3>Drag and drop a file or select add Image</h3>
+          </div>
         </div>
-        <!-- <div class="form-floating">
-            <input type="Sentence" class="form-control" id="floatingPassword" placeholder="Sentence">
-            <label for="floatingPassword">Sentence</label>
-        </div> -->
-    </div>    
-    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <div class="file-upload">
-      <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
-      <div class="image-upload-wrap">
-        <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
-        <div class="drag-text">
-          <h3>Drag and drop a file or select add Image</h3>
+        <div class="file-upload-content" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <img class="file-upload-image" src="#" alt="your image" id="drag1" src="img_logo.gif" draggable="true" ondragstart="drag(event)" width="336" height="69"/>
+          <div class="image-title-wrap">
+            <button type="button" onclick="removeUpload()" class="remove-image">Remove<span class="image-title">Remove Image</span></button>
+          </div>
         </div>
       </div>
-      <div class="file-upload-content">
-        <img class="file-upload-image" src="#" alt="your image" />
-        <div class="image-title-wrap">
-          <button type="button" onclick="removeUpload()" class="remove-image">Remove<span class="image-title">Uploaded Image</span></button>
-        </div>
-      </div>
+      
+      <button type="submit" class="file-upload-btn" style="margin-bottom: 15px;width: 75%;margin-left: 47px;">Submit</button>
+
+      <p class="index_p" style="margin-bottom: 1.5rem;">Go to <a href="/" data-replace="index" class="index_a"><span>index</span></a></p>
+        
+
+      <p class="AlvaRonin" style="margin-bottom: 0;">&copy; AlvaRonin 2023</p>
+
     </div>
-    <p class="AlvaRonin">&copy; AlvaRonin 2023</p>
-    </form>
+
+  </form>
+
 </main>
+
+<script>
+const button = document.getElementById("check-btn");
+button.addEventListener("click", function(event){
+  event.preventDefault(); 
+  const input = document.getElementById("japsentence");
+  const sentence = japsentence.value;
+  const hasParticle = containsParticle(sentence);
+  if (hasParticle) {
+    japsentence.style.background = "#ddffdd";
+    alert("Perfect Sentence. Particle included.");
+  } else {
+    japsentence.style.background = "#ffffcc";
+    alert("Introduced sentence does not contain any particle.");
+  }
+});
+
+function containsParticle(sentence) {
+  const particles = ['は','が','を','も','に','へ', 'で', 'から', 'まで', 'と', 'や', 'の', 'ね', 'よ'];
+  for (const particle of particles) {
+    if (sentence.includes(particle)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+
+</script>
 </body>
 </html>

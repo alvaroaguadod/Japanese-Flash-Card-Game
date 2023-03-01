@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/main.css'%}">    
+    <link rel="icon" href="{% static 'images/boxglove.png'%}">
     <title>Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" 
@@ -20,60 +21,37 @@
 
         <h1>Register</h1>
         <p>It's easy and quick.</p>
-        
+
+        {% for message in messages %}
+          {% if message.tags == 'success' %}
+              <h5 style="color: #049f04">{{ message }}</h5>
+          {% elif message.tags == 'error' %}
+              <h5 style="color: #f60d38">{{ message }}</h5>
+          {% else %}
+              <h5>{{ message }}</h5>
+          {% endif %}
+        {% endfor %}
+
+
         <div class="infoPerson" style="margin-bottom: -60px">
 
-       <!--    <div class="form-floating">
-            {{ form.username.label_tag }}cambio?     <label for="username">Username</label>      
-            {{ form.username }}
-            {% if field.errors%}
-              {{ field.errors }}
-            {% endif %}
-          </div>
-
-        <div class="form-floating">
-          {{ form.email.label_tag }}
-          {{ form.email }}
-          {% if field.errors%}
-            {{ field.errors }}
-          {% endif %}
-        </div>
-
-        <div class="form-floating">
-          {{ form.password.label_tag }}
-          {{ form.password }}
-          {% if field.errors%}
-            {{ field.errors }}
-          {% endif %}
-        </div>
-        <br>
-        <p>Confirm Password.</p>
-        <div class="form-floating">
-          {{ form.password2.label_tag }}
-          {{ form.password2 }}
-          {% if field.errors%}
-            {{ field.errors }}
-          {% endif %}
-        </div>
--->
-
           <div class="form-floating">
-            <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Username" required>
+            <input type="text" name="username" class="form-control" id="username" placeholder="Username" required>
             <label for="username">Username</label>
           </div>
           <div class="form-floating">
-            <input type="email" class="form-control" placeholder="name@example.com" style="border-top-left-radius: 0; border-top-right-radius: 0;" required>
+            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" style="border-top-left-radius: 0; border-top-right-radius: 0;" required>
             <label for="email">Email</label>
           </div>
 
           <div class="form-floating">
-            <input type="password" name="password" class="form-control" id="floatingInput" placeholder="******" minlength="6" required>
+            <input type="password" name="password1" class="form-control" id="password1" placeholder="******" minlength="6" required>
             <label for="password">Password</label>
           </div>
-          <br>
+
           <p>Confirm Password.</p>
           <div class="form-floating">
-            <input type="password" name="password2" class="form-control" id="floatingInput" placeholder="******" minlength="6" style="border-top-left-radius: 8px; border-top-right-radius: 8px;" required>
+            <input type="password" name="password2" class="form-control" id="password2" placeholder="******" minlength="6" style="border-top-left-radius: 8px; border-top-right-radius: 8px;" required>
             <label for="password">Password</label>
           </div>
 
@@ -81,11 +59,11 @@
           <p class="politiqueos">By clicking Register, you accept our Terms and Conditions.</p>
           <button class="w-100 btn btn-lg btn-primary" type="submit" style="--bs-btn-bg: #f60d38; --bs-btn-bg: #f60d38;
           --bs-btn-hover-bg: #212529; --bs-btn-border-color: #212529;--bs-btn-hover-border-color: #f60d38; --bs-btn-active-bg: #ffcccc;
-            --bs-btn-active-border-color: none;">Register</button><br><br>
+            --bs-btn-active-border-color: none;" type="submit">Register</button><br><br>
         </div><br>
 
-
         <p class="index_p">Go to <a href="/" data-replace="index" class="index_a"><span>index</span></a></p>
+        
         <div class="p-3">
             <div class="border-bottom text-center" style="height:0.9rem">
               <span class="bg-rgba(245, 245, 245, 1)"></span>
