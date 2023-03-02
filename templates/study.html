@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/game.css'%}">
     <link rel="icon" href="{% static 'images/boxglove.png'%}">
-    <title>Play to Learn</title>
+    <title>Learning 日本語</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" 
     crossorigin="anonymous">
@@ -18,41 +18,44 @@
         <form>
             <h1 style="margin-bottom: 0.5rem;">Study Session</h1>
             <p>Let's improve your skills. がんばって!</p>
-            <div class="nav-container" style="margin-left: 2.2rem;">
+            <div class="nav-container" style="margin-left: 10.2rem;font-size: 20px;">
                 <div class="nav-arrow nav-arrow-left">&lt;</div>
                 <ul class="nav-menu">
-                  <li class="nav-item active" data-target="#failures">Failures</li>
-                  <li class="nav-item" data-target="#は">は</li>
-                  <li class="nav-item" data-target="#が">が</li>
-                  <li class="nav-item" data-target="#を">を</li>
-                  <li class="nav-item" data-target="#も">も</li>
-                  <li class="nav-item" data-target="#に">に</li>
-                  <li class="nav-item" data-target="#へ">へ</li>
-                  <li class="nav-item" data-target="#で">で</li>
-                  <li class="nav-item" data-target="#から">から</li>
-                  <li class="nav-item" data-target="#まで">まで</li>
-                  <li class="nav-item" data-target="#と">と</li>
-                  <li class="nav-item" data-target="#や">や</li>
-                  <li class="nav-item" data-target="#の">の</li>
-                  <li class="nav-item" data-target="#ね">ね</li>
-                  <li class="nav-item" data-target="#よ">よ</li>
+                  <li class="content active" data-target="#failures">Failures</li>
+                  <li class="content hidden" data-target="#は">は</li>
+                  <li class="content hidden" data-target="#が">が</li>
+                  <li class="content hidden" data-target="#を">を</li>
+                  <li class="content hidden" data-target="#も">も</li>
+                  <li class="content hidden" data-target="#に">に</li>
+                  <li class="content hidden" data-target="#へ">へ</li>
+                  <li class="content hidden" data-target="#で">で</li>
+                  <li class="content hidden" data-target="#から">から</li>
+                  <li class="content hidden" data-target="#まで">まで</li>
+                  <li class="content hidden" data-target="#と">と</li>
+                  <li class="content hidden" data-target="#や">や</li>
+                  <li class="content hidden" data-target="#の">の</li>
+                  <li class="content hidden" data-target="#ね">ね</li>
+                  <li class="content hidden" data-target="#よ">よ</li>
                 </ul>
                 <div class="nav-arrow nav-arrow-right">&gt;</div>
               </div>
               
               <div class="content-container">
-                <div class="content active">
-                  <!-- Content for Option 1  -->
-                </div>
-                <div class="content">
-                  <!-- Content for Option 2 -->
-                </div>
-                <div class="content">
-                  <!-- Content for Option 3 -->
-                </div>
-                <div class="content">
-                  <!-- Content for Option 4 -->
-                </div>
+                <div id="failures" class="content active">Failures content goes here</div>
+                <div id="は" class="content hidden">は content goes here</div>
+                <div id="が" class="content hidden">が content goes here</div>
+                <div id="を" class="content hidden">を content goes here</div>
+                <div id="も" class="content hidden">も content goes here</div>
+                <div id="に" class="content hidden">に content goes here</div>
+                <div id="へ" class="content hidden">へ content goes here</div>
+                <div id="で" class="content hidden">で content goes here</div>
+                <div id="から" class="content hidden">から content goes here</div>
+                <div id="まで" class="content hidden">まで content goes here</div>
+                <div id="と" class="content hidden">と content goes here</div>
+                <div id="や" class="content hidden">や content goes here</div>
+                <div id="の" class="content hidden">の content goes here</div>
+                <div id="ね" class="content hidden">ね content goes here</div>
+                <div id="よ" class="content hidden">よ content goes here</div>
               </div>
             <div class= "game-board">
                 <div class="box"></div>
@@ -67,7 +70,11 @@
                 <div class="box"></div>
                 <div class="box"></div>
                 <div class="box"></div>
-                <div class="box"></div>
+                <div class="boxEnd">
+                  <a href='/game' data-replace="game" class="flow-btn"><p><span>Game</span></p></a>   
+                  <a href='/upload' data-replace="upload" class="flow-btn"><p><span>Upload</span></p></a>  
+                  <a href="/" class="exit-btn">Exit</a>
+                </div>                
                 <div class="box"></div>
                 <div class="box"></div>
                 <div class="box"></div>

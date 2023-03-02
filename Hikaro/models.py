@@ -15,8 +15,8 @@ class User(models.Model):
         return self.username
 
 class Flashcard(models.Model):
-    japanese_sentence = models.CharField(max_length=200)
-    english_meaning = models.CharField(max_length=200)
+    japanese_sentence = models.CharField(max_length=200,default=None)
+    english_meaning = models.CharField(max_length=200, default=None)
     image = models.ImageField(upload_to='storedImages', null=True, blank=True)
 
     def __str__(self):

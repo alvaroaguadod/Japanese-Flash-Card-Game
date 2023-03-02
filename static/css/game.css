@@ -138,6 +138,7 @@ h1 {
 
 .botonJuego{
     width: 80%;
+    height: 50%;
     margin: 11px!important;
     color: #f39c12;
     border-color: #212529;

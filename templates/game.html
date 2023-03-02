@@ -17,6 +17,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 </head>
 <body class="text-center">  
+  
+    <!-- Modal popup -->
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel">Choose an Option</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+              <p>Do you want to start the game or go to study?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="startGame">Start Game</button>
+              <button type="button" class="btn btn-default" id="goToStudy">Go to Study</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+  <!-- Rest of the HTML code -->
     <main class="form-game w-100 m-auto">
         <form>
             <h1 style="margin-bottom: 0.5rem;"> Japanese Particles Quiz</h1>
@@ -100,16 +123,50 @@
             <p class="AlvaRonin">&copy; AlvaRonin 2023</p>
         </form>
     </main>
+   
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function incrementScore(selectedWord) {
-            console.log('Incrementando Score')
-            console.log(selectedWord)
-            //let href = '/game/?selected_word=' + selectedWord
-            let href = '/game/?selected_word=' + selectedWord
-            console.log(href)
-            window.location.href = href
-            window.alert(href)
-        }
+/*  Your JavaScript code */
+    // JavaScript code to handle the modal popup and redirect the user
+    window.onload = function() {
+      $('#myModal').modal('show');
+    };
+
+
+    document.getElementById("startGame").addEventListener("click", function() {
+      // Generate a random session ID
+      var sessionId = Math.random().toString(36).substring(7);
+      // Redirect the user to the game page with the session ID as a parameter
+      window.location.href = "game.html?sessionId=" + sessionId;
+    });
+
+    document.getElementById("goToStudy").addEventListener("click", function() {
+      // Redirect the user to the study page
+      window.location.href = "study.html";
+    }); 
+
+    var sessionId = getParameterByName("sessionId");
+
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    
+    
+    function incrementScore(selectedWord) {
+        console.log('Incrementando Score')
+        console.log(selectedWord)
+        //let href = '/game/?selected_word=' + selectedWord
+        let href = '/game/?selected_word=' + selectedWord
+        console.log(href)
+        window.location.href = href
+        window.alert(href)
+    }
     </script>
 </body>
 </html>

@@ -14,7 +14,7 @@
 </head>
 <body class="text-center">
   
-<main style="transform: scale(0.8);max-height: fit-content;" class="form-upload w-100 m-auto">
+<main style="transform: scale(1);max-height: fit-content;margin-top: 5rem!important;" class="form-upload w-100 m-auto">
   <!--form onsubmit="return validateForm()"-->
   <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
@@ -51,10 +51,7 @@
         </div>
       </div>
       
-      <button type="submit" class="file-upload-btn" style="margin-bottom: 15px;width: 75%;margin-left: 47px;">Submit</button>
-
-      <p class="index_p" style="margin-bottom: 1.5rem;">Go to <a href="/" data-replace="index" class="index_a"><span>index</span></a></p>
-        
+      <button type="submit" class="file-upload-btn" style="margin-bottom: 15px;width: 75%;margin-left: 47px;">Submit</button>        
 
       <p class="AlvaRonin" style="margin-bottom: 0;">&copy; AlvaRonin 2023</p>
 
