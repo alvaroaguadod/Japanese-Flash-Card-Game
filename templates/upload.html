@@ -26,9 +26,10 @@
     <div id="json-response"></div>
     <div class="infoNihongo">
       <div class="form-floating" style="margin-bottom: 0.75em;">
-          <input type="text" class="form-control" id="japsentence" name="japanese_sentence" placeholder="Japanese Sentence">
-          <label for="japsentence"> 文 (Japanese Sentence)</label>
-          <button id="check-btn">Check</button>
+        <input type="hidden" name="particle" id="particle-input">
+        <input type="text" class="form-control" id="japsentence" name="japanese_sentence" placeholder="Japanese Sentence">
+        <label for="japsentence"> 文 (Japanese Sentence)</label>
+        <button id="check-btn">Check</button>
       </div>
       <div class="form-floating">
         <input type="text" class="form-control" id="engmeaning" name="english_meaning" placeholder="Meaning">
@@ -67,24 +68,26 @@ button.addEventListener("click", function(event){
   event.preventDefault(); 
   const input = document.getElementById("japsentence");
   const sentence = japsentence.value;
-  const hasParticle = containsParticle(sentence);
-  if (hasParticle) {
+  const particle = getParticle(sentence);
+  if (particle) {
     japsentence.style.background = "#ddffdd";
     alert("Perfect Sentence. Particle included.");
+    // submit the form
+    event.target.form.submit();
   } else {
     japsentence.style.background = "#ffffcc";
     alert("Introduced sentence does not contain any particle.");
   }
 });
 
-function containsParticle(sentence) {
+function getParticle(sentence) {
   const particles = ['は','が','を','も','に','へ', 'で', 'から', 'まで', 'と', 'や', 'の', 'ね', 'よ'];
   for (const particle of particles) {
     if (sentence.includes(particle)) {
-      return true;
+      return particle;
     }
   }
-  return false;
+  return null;
 }
 
 function allowDrop(ev) {

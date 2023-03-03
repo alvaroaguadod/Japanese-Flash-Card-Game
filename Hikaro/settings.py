@@ -53,6 +53,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Hikaro.urls'
 
+MEDIA_URL = 'storedImages/'
+
+MEDIA_ROOT = BASE_DIR / 'storedImages'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -133,3 +137,6 @@ STATICFILES_DIRS= (
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Set the session engine to use the database backend
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'

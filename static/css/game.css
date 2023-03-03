@@ -76,6 +76,7 @@ h1 {
     font-weight: bold;
 }
 
+
 /*FLASHCARDS*/
 
 .flashcard-section{
@@ -173,7 +174,6 @@ h1 {
     justify-content: flex-end;
 }
 
-
 .exit-btn {
     width: 61%;
     height: 37%;
@@ -260,4 +260,4 @@ h1 {
 .content.active {
     display: block;
 }
-  
+

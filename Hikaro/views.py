@@ -1,64 +1,95 @@
-from .models import Flashcard, User
+from .models import Flashcard, User, Match
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.sessions.backends.db import SessionStore
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User as User_django
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 import json, os
 from django.contrib import messages
 from .forms import NewUserForm
-import random
+import random, uuid
 
 
-wins = ''
 
 #Function that increments the score when the user chooses the correct option.
 def game(request):
-    global wins
-    global score
-    global current_round
-    score = 0
-    l_err = []
-    flashcards = ''
-    l_words = ['は','が','を','も','に','へ', 'で', 'から', 'まで', 'と', 'や', 'の', 'ね', 'よ', 'none']
-    used_indices = [] # keep track of used indices
-    score = 0 # initialize the score
-    current_round = 0 # initialize the rounds
+    user_id = request.session.get('user_id')
+    if user_id:
+        try:
+            match = Match.objects.get(user_id=user_id)
+            user = match.user_id
+        except Match.DoesNotExist:
+            # create a new user with the given id
+            match = Match.objects.create(user_id=user_id, username="Anonymous")
+            user = match.user_id
 
-    # generate the winning word
-    wins = random.randint(0,len(l_words)-1)
-    used_indices.append(wins)
-    obj_wins = l_words[wins]
-    print(obj_wins)
-
-    # generate the incorrect words
-    while len(l_err) != 3:
-        num = random.randint(0,len(l_words)-1)
-        if num != wins and num not in used_indices:
-            l_err.append(l_words[num])
-            used_indices.append(num)
-
-    # check if the selected word matches the winning word
-    if request.GET.get('selected_word') == obj_wins:
-        score += 1 # increment the score
-        current_round += 1
-        flashcards = get_flashcards(current_round)
-
-    return render(request, 'game.html', {
-        'message': 'New message from the view',
-        'err1':l_err[0],
-        'err2':l_err[1],
-        'err3':l_err[2],
-        'wins':obj_wins,
-        'score': score,
-        'flashcards': flashcards
-    })
+        # retrieve score and round from the Match model for the current user
+        try:
+            score = match.score
+            current_round = match.current_round
+        except Match.DoesNotExist:
+            # create a new Match object for the current user
+            match = Match(user_id=user_id, username=user.username, score=0, current_round=0)
+            score = 0
+            current_round = 0
 
 
+        l_err = []
+        flashcards = ''
+        l_words = ['は','が','を','も','に','へ', 'で', 'から', 'まで', 'と', 'や', 'の', 'ね', 'よ', 'none']
+        used_indices = [] # keep track of used indices
 
-#Function that reads the sentences from the JSON file and separates particle from sentences    
+        # generate the winning word
+        wins = random.randint(0,len(l_words)-1)
+        print(wins)
+        used_indices.append(wins)
+        obj_wins = l_words[wins]
+        print(obj_wins)
+
+        # generate the incorrect words
+        while len(l_err) != 3:
+            num = random.randint(0,len(l_words)-1)
+            if num != wins and num not in used_indices:
+                l_err.append(l_words[num])
+                used_indices.append(num)
+
+        # check if the selected word matches the winning word
+        if request.GET.get('selected_word') == obj_wins:
+            score += 1 # increment the score
+            current_round += 1 # increment the round  
+
+        # update the score and round in the Match model for the current user
+        match.score = score
+        match.current_round = current_round
+        match.save()
+
+        # retrieve flashcards from database
+        flashcards = Flashcard.objects.all()
+        flashcards_data = []
+        for flashcard in flashcards:
+            flashcards_data.append({
+                'japanese_sentence': flashcard.japanese_sentence,
+                'particle': flashcard.particle,
+                'english_meaning': flashcard.english_meaning,
+                'image_name': flashcard.image
+            })
+
+        return render(request, 'game.html', {
+            'message': 'New message from the view',
+            'err1':l_err[0],
+            'err2':l_err[1],
+            'err3':l_err[2],
+            'wins':obj_wins,
+            'score': score,
+            'current_round': current_round,
+            'flashcards': flashcards
+        })
+        
+#Function that reads the sentences from the JSON file and separates particle from sentences   (esta llega a funcionar?)
+"""
 def my_view(request):
     with open('sentences.json', 'r', encoding='utf-8') as f:
         sentences = json.load(f)
@@ -72,10 +103,10 @@ def my_view(request):
     }
     
     return render(request, 'my_template.html', context)
-
-
+"""
 
 #Function to obtain card for the round.
+"""
 def get_flashcards(round):
     # Load flashcards from the JSON file
     with open('data.json') as f:
@@ -87,18 +118,15 @@ def get_flashcards(round):
     flashcards_data = Flashcard.objects.filter(round=round)
     for flashcard in flashcards_data:
         if flashcard['round'] == round:
-            flashcards.append(Flashcard(flashcard["kanji"], flashcard["meaning"], flashcard["example"]))
+            flashcards.append(Flashcard(flashcard["image"], flashcard["japanese"], flashcard["english"]))
     return flashcards
-
+"""
 
 #Pass the flashcards data to the template context 
 def game_view(request):
-    # Get flashcards data for the current round
-    flashcards_data = get_flashcards(round= current_round)
-
     # Render the game.html template with the flashcards data
-    context = {'flashcards_data': flashcards_data}
-    return render(request, 'game.html', context)
+    return render(request, 'game.html', {'flashcard': Flashcard.objects.all(),
+                                         'num_flashcard': Flashcard.objects.count()})
 
 
 def login_view(request):
@@ -114,6 +142,13 @@ def login_view(request):
             login(request, user)
             messages.success(request, 'Bienvenido {}'.format(user.username))
             print("Usuario autenticado")
+
+            # create a new session and store user data
+            user_id = uuid.uuid4().int #normalmente es aconsejable que sea str
+            request.session = SessionStore()
+            request.session['user_id'] = user_id
+            request.session.save()
+
             return redirect('game')    
 
         else:
@@ -224,10 +259,13 @@ def upload(request):
         japanese_sentence = request.POST.get('japanese_sentence')
         english_meaning = request.POST.get('english_meaning')
         image_file = request.FILES.get('image_file')
+        particle = request.POST.get('particle')
 
         print(japanese_sentence)
         print(english_meaning)
         print(image_file)
+        print(particle)
+
         
         # Make sure all required fields are provided
         if not (japanese_sentence and english_meaning and image_file):
@@ -248,8 +286,18 @@ def upload(request):
         new_flashcard = {
             'japanese': japanese_sentence,
             'english': english_meaning,
-            'image': image_path
+            'image': image_path,
+            'particle': particle
         }
+        
+        #Create flashcard
+        flashcard = Flashcard(
+            japanese=new_flashcard['japanese'],
+            english=new_flashcard['english'],
+            image=new_flashcard['image'],
+            particle=new_flashcard['particle']
+        )
+        flashcard.save()
 
         # Append new flashcard object to existing data
         existing_data['flashcards'].append(new_flashcard)
