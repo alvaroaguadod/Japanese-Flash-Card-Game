@@ -8,21 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/game.css'%}">
     <link rel="icon" href="{% static 'images/boxglove.png'%}">
-    <title>Learning 日本語</title>
+    <title>Study Session</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" 
     crossorigin="anonymous">
 </head>
 <body class="text-center">  
-    <main class="form-game w-100 m-auto">
+    <main class="form-game w-100 m-auto" style="transform: scale(0.8);max-height: fit-content;margin-top: -4rem!important;">
         <form>
             <h1 style="margin-bottom: 0.5rem;">Study Session</h1>
             <p>Let's improve your skills. がんばって!</p>
-            <div class="nav-container" style="margin-left: 10.2rem;font-size: 20px;">
+            <div class="nav-container">
                 <div class="nav-arrow nav-arrow-left">&lt;</div>
                 <ul class="nav-menu">
-                  <li class="content active" data-target="#failures">Failures</li>
-                  <li class="content hidden" data-target="#は">は</li>
+                  <li class="content active" data-target="#は">は</li>
                   <li class="content hidden" data-target="#が">が</li>
                   <li class="content hidden" data-target="#を">を</li>
                   <li class="content hidden" data-target="#も">も</li>
@@ -40,98 +39,211 @@
                 <div class="nav-arrow nav-arrow-right">&gt;</div>
               </div>
               
+              <p>は, が, を, も, に, へ, で, から, まで, と, や, の, ね, よ</p>
+
               <div class="content-container">
-                <div id="failures" class="content active">Failures content goes here</div>
-                <div id="は" class="content hidden">は content goes here</div>
-                <div id="が" class="content hidden">が content goes here</div>
-                <div id="を" class="content hidden">を content goes here</div>
-                <div id="も" class="content hidden">も content goes here</div>
-                <div id="に" class="content hidden">に content goes here</div>
-                <div id="へ" class="content hidden">へ content goes here</div>
-                <div id="で" class="content hidden">で content goes here</div>
-                <div id="から" class="content hidden">から content goes here</div>
-                <div id="まで" class="content hidden">まで content goes here</div>
-                <div id="と" class="content hidden">と content goes here</div>
-                <div id="や" class="content hidden">や content goes here</div>
-                <div id="の" class="content hidden">の content goes here</div>
-                <div id="ね" class="content hidden">ね content goes here</div>
-                <div id="よ" class="content hidden">よ content goes here</div>
+                <div id="は" class="content active"><strong>は (wa) </strong>follows the topic the speaker wants to talk about. Therefore, wa は is often called topic marking particle.
+                  <br><br><p style="margin-left: 1em;"> The “topic” is often the grammatical subject, but can be anything (including the grammatical object, and sometimes the verb), and it may also follow some other particles.</p>
+                  <strong>Formation </strong><br>
+                  [ A ] wa [ B ] desu.<br>
+                  = [ A ] is [ B ].<br>
+                  <br><strong>Example</strong><br>
+                  昨日<strong>は</strong>雨だった。<br>
+                  Kinō <strong>wa</strong> ame datta.<br>
+                  It was rainy yesterday.</p></div>
+
+                <div id="が" class="content hidden"><strong><strong>が (ga) </strong>marks the grammatical subject of a sentence when it is first introduced to a conversation It can also be used to join sentences, like the word “but”, but that が is technically a different word. The particle が can also be used to emphasize the subject or distinguish it from others.
+                  <br><br><p style="margin-left: 1em;"> While は is used when a question word (who, where, etc) comes after the topic in the sentence (レストラン<strong>は</strong>どこですか。), we use the particle が when the question word is the subject or part of it.</p>
+                  <strong>Example </strong><br>
+                  だれ<strong>が</strong>来ますか。
+                  Dare <strong>ga</strong> kimasu ka?
+                  Who will come?<br>  
+                  私は猫<strong>が</strong>好きです。
+                  Watashi wa neko <strong>ga</strong> suki desu.
+                  I like cats.
+
+                <div id="を" class="content hidden"><strong>を (wo) </strong>marks the grammatical object of a sentence. It follows nouns and noun phrases.
+                 <br> <strong>Formation </strong><br>
+                 Noun + wo(を) + verb<br>
+                  <br><strong>Example</strong><br>
+                  私はチョコ<strong>を</strong>食べます。<br>
+                  Watashi wa choko <strong>o</strong> tabemasu.<br>
+                  I eat chocolate.</p></div>
+
+                <div id="も" class="content hidden"><strong>も (mo) </strong>functions as “also” or “too” in English. It is used to indicate that something that has previously been stated also holds true for the item currently under discussion. It replaces ga, wa or wo when used.
+                  <br><strong>Formation </strong><br>
+                  [Object1]は[property1/action1]です<br>
+                  [Object2]も[property1/action1]です<br>
+                  <br><strong>Example</strong><br>
+                  A: 私はフランス人です。Watashi wa furansujin desu.
+                  B: 私<strong>も</strong>フランス人です。Watashi <strong>mo</strong> furansujin desu.
+                  A: I am French.
+                  B: I am also French.</p></div>
+
+                <div id="に" class="content hidden"><strong>に (ni) </strong>indicates a place toward where someone or something moves. It is preceded by the name of the place and followed by a verb which indicates a moving action such as iku(行く) “to go.”
+                  It is also used with giving/receiving verbs and can then mean “from”.
+                  <br><br><p style="margin-left: 1em;"> In the case of passive verbs, it marks the grammatical agent, making it the same as “by” in English. (i.e. “my wallet was stolen by my brother.” ) に is also used to indicate the location of existence when combined with the verbs いる or ある, making it the Japanese version of “at” (in some instances).
+                  <strong>Formation </strong><br>
+                  place + ni (に)<br>
+                  <br><strong>Example</strong><br>
+                  学校<strong>に</strong>行きます。<br>
+                  Gakkō <strong>ni</strong> ikimasu.<br>
+                  I go to school.</p></div>
+
+                <div id="へ" class="content hidden"><strong>へ (e) </strong>is basically the same as に, except it emphasizes direction over arrival. The main difference is usage. へ is never used as “from”, “by”, “at”. In addition, the particle の can follow the へ particle directly, whereas it cannot follow に.
+                  <strong>Formation </strong><br>
+                  location/direction + e(へ)<br>
+                  <br><strong>Example</strong><br>
+                  彼<strong>へ</strong>手紙を送りました。<br>
+                  Kare <strong>e</strong> tegami o okurimasita.<br>
+                  I sent him a letter.</p></div>
+
+                <div id="で" class="content hidden"><strong>で (de) </strong>is used to indicate location of an action. The performer of the action (the subject) is followed by either of the particles wa or ga, and the place is followed by de. However it can not be used with with the verbs いる or ある
+                  <br><strong>Formation </strong><br>
+                  location + de (で)<br>
+                  <br><strong>Example</strong><br>
+                  私は家<strong>で</strong>本を読みます。<br>
+                  Watashi wa ie <strong>de</strong> hon o yomimasu.<br>
+                  I read books at home.</p></div>
+
+                <div id="から" class="content hidden"><strong>から (kara) </strong>indicates the source of an object or action. This starting position may be either a point in space (in which case it is translated as “from”), or a point in time (in which case it is translated as “since” or “after”).
+                  <strong>Formation </strong><br>
+                  Noun + kara (から)<br>
+                  <br><strong>Example</strong><br>
+                  学校<strong>から</strong>家までどれくらいかかりますか。<br>
+                  Gakkō <strong>kara</strong> ie made dorekurai kakarimasu ka?<br>
+                  How long does it take you to get home from school?</p></div>
+                
+                  <div id="まで" class="content hidden"><strong>まで (made) </strong>indicates that an action/effect extends or reaches a specified limit or a point in time or space. It is therefore equivalent to the English expression “until.”
+                  <strong>Formation </strong><br>
+                  Noun + made (まで)<br>
+                  <br><strong>Example</strong><br>
+                  彼女と７時学校<strong>まで</strong>ドライブしました。<br>
+                  Kanojo to shichi-ji Gakkō<strong>made</strong> doraibu shimashita.<br>
+                  I drove with her to school at 7:00.</p></div>
+
+                <div id="と" class="content hidden"><strong>と (to) </strong>is used to join nouns together into an exhaustive list that functions as a single noun. (”with”, “and”).
+                  <br><br><p style="margin-left: 1em;"> It's also the particle used to indicate a direct quote (from someone's mind or speech), functioning like quotation marks in English.</p>
+                  <strong>Formation </strong><br>
+                  Noun + to(と) + Noun<br>
+                  <br><strong>Example</strong><br>
+                  肉<strong>と</strong>魚が好きです。<br>
+                  Niku <strong>to</strong> sakana ga suki desu.<br>
+                  I like meat and fish.</p></div>
+                
+                  <div id="や" class="content hidden"><strong>や (ya) </strong>is used in the same way as the first sense of と, but the list is not exhaustive. It means “such things as A, B, and C”.
+                  <strong>Formation </strong><br>
+                  AやB<br>
+                  AやBや<br>
+                  <br><strong>Example</strong><br>
+                  赤<strong>や</strong>黄色の花が咲いていた。<br>
+                  Aka <strong>ya</strong> kīro no hana ga saiteita.<br>
+                  There were red, yellow and other color flowers blooming.</p></div>
+               
+                  <div id="の" class="content hidden"><strong>の (no) </strong>indicates possession (functioning like the English “apostrophe-S”). Normally, in the structure A no B, B belongs to A, however, many nouns act like adjectives when followed by no. It directly follows nouns and noun phrases.
+                  <strong>Formation </strong><br>
+                  Object1 + の + Object2<br>
+                  <br><strong>Example</strong><br>
+                  あなた<strong>の</strong>名前はなんですか。<br>
+                  Anata <strong>no</strong> namae wa nan desuka?<br>
+                  What is your name?</p></div>
+                
+                  <div id="ね" class="content hidden"><strong>ね (ne) </strong>is used at the end of sentences, basically in the same way as an English tag question. Generally, if said with rising intonation, it indicates a request for confirmation from the listener (i.e. “It's a beautiful day, isn't it?” ), whereas if it's said with falling intonation, it's used as rhetorical device (i.e. “It's a beautiful day, isn't it.” ).
+                  <strong>Formation </strong><br>
+                  the particle ne is added to the end of the sentence<br>
+                  <br><strong>Example</strong><br>
+                  これは美味しいです<strong>ね</strong>。<br>
+                  Kore wa oishii desu <strong>ne</strong>.<br>
+                  This is delicious, isn't it?</p></div>
+                
+                  <div id="よ" class="content hidden"><strong>よ (yo) </strong>is used by the speaker to express a strong conviction about something or to emphatically declare something.
+                  <strong>Formation </strong><br>
+                  the particle yo is added to the end of the sentence<br>
+                  <br><strong>Example</strong><br>
+                  明日私は行く<strong>よ</strong>。<br>
+                  Ashita Watashi wa iku <strong>yo</strong>.<br>
+                  I will go tomorrow!</p></div>
               </div>
               
-            <div class= "game-board">
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
                 <div class="boxEnd">
                   <a href='/game' data-replace="game" class="flow-btn"><p><span>Game</span></p></a>   
                   <a href='/upload' data-replace="upload" class="flow-btn"><p><span>Upload</span></p></a>  
-                  <a href="/" class="exit-btn">Exit</a>
+                  <a href="/" class="exit-btn" style="margin-left: 5.8rem; margin-bottom: 2rem;">Exit</a>
                 </div>                
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-            </div> 
             <p class="AlvaRonin">&copy; AlvaRonin 2023</p>
         </form>
-    </main>
-    <script>
-        const navItems = document.querySelectorAll('.nav-item');
-        const contentItems = document.querySelectorAll('.content');
+  </main>
 
-        function showContent(index) {
-          // Hide all content items
-          contentItems.forEach(item => item.classList.remove('active'));
-        
-          // Show the selected content item
-          contentItems[index].classList.add('active');
-        }
+  <script>
+    const menuItems = document.querySelectorAll('.nav-menu .content');
+    const nav = document.querySelector('.nav-menu');
+    const leftArrow = document.querySelector('.nav-arrow-left');
+    const rightArrow = document.querySelector('.nav-arrow-right');
+    const itemWidth = menuItems[0].offsetWidth;
+    const visibleItems = Math.floor(nav.offsetWidth / itemWidth);
+    const contents = document.querySelectorAll('.content');
+    const activeIndex = 0;
 
-        navItems.forEach((item, index) => {
-          item.addEventListener('click', () => {
-            // Set the clicked item as active
-            navItems.forEach(item => item.classList.remove('active'));
+    let currentIndex = 0;
+    let maxIndex = menuItems.length - visibleItems;
+
+    function updateNav() {
+      menuItems.forEach((item, index) => {
+        if (index >= currentIndex && index < currentIndex + visibleItems) {
+          item.classList.remove('hidden');
+          if (index === currentIndex) {
             item.classList.add('active');
-        
-            // Show the corresponding content item
-            showContent(index);
-          });
-        });
-
-        let currentIndex = 0;
-
-        function navigateRight() {
-          if (currentIndex < navItems.length - 1) {
-            currentIndex++;
-            showContent(currentIndex);
-            navItems[currentIndex].click();
+          } else {
+            item.classList.remove('active');
           }
+        } else {
+          item.classList.add('hidden');
         }
+      });
+    }
 
-        function navigateLeft() {
-          if (currentIndex > 0) {
-            currentIndex--;
-            showContent(currentIndex);
-            navItems[currentIndex].click();
-          }
-        }
+    updateNav();
 
-        document.querySelector('.nav-arrow-right').addEventListener('click', navigateRight);
-        document.querySelector('.nav-arrow-left').addEventListener('click', navigateLeft);
+    leftArrow.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex -= 1;
+        updateNav();
+      }
+    });
 
-        // Show the first content item by default
-        showContent(0);
-        navItems[0].click();
+    rightArrow.addEventListener('click', () => {
+      if (currentIndex < maxIndex) {
+        currentIndex += 1;
+        updateNav();
+      }
+    });
 
-    </script>
+    function setActiveItem(index) {
+      // Remove active class from all menu items and contents
+      menuItems.forEach(item => item.classList.remove('active'));
+      contents.forEach(content => content.classList.remove('active'));
+
+      // Add active class to the selected menu item and content
+      menuItems[index].classList.add('active');
+      contents[index].classList.add('active');
+
+      // Scrape content from the website
+      if (index === 0) {
+        // Get the information contained between <a> Grammar Bank </a> to <a> Grammar Bank </a>
+        fetch('https://www.japanesepod101.com/blog/japanese-particles-guide-wa-ni-ga-wo-and-more/')
+          .then(response => response.text())
+          .then(data => {
+            const startTag = '<a> Grammar Bank </a>';
+            const endTag = '<a> Grammar Bank </a>';
+            const startIndex = data.indexOf(startTag) + startTag.length;
+            const endIndex = data.indexOf(endTag, startIndex);
+            const content = data.substring(startIndex, endIndex).trim();
+            console.log(content);
+          })
+          .catch(error => console.log(error));
+      }
+    }
+
+  </script>
 </body>
 </html>

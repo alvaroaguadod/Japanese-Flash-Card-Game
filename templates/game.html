@@ -15,7 +15,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-    <script defer src="scriptgame.js"></script>
 </head>
 <body class="text-center">  
 
@@ -26,20 +25,19 @@
             
             <div class= "game-board">
                 <div class="box">
-                    <h5 style="font-size: 1rem;
-                    font-family: 'Permanent Marker', cursive;">ROUND <br>{{current_round}}</h5>
-                    <h6>Score</h6>
-                    <p class="correct">Correct: <br>{{score}}</p>
+                    <h5>ROUND <br>{{current_round}}</h5>
+                    <p class="fails">Wrong: <br>{{score}}</p>
                 </div>
 
-                <div class="box">      
-                    {% for flashcard in flashcards %}              
+                <div class="box">  
+
                     <div class="flashcard-section">
                         <div id="flashcards">
+                            
                             <img src="{{ flashcard.image.url }}" alt="Dynamic image">                   
                             <!--h3>わたし <span>_</span> 学生です。<h3-->
-                            <h3> 
-                            {% for word in flashcard.japanese_sentence.split %}
+                            <h3 style="margin-left: 1em;"> 
+                            {% for word in flashcard.japanese_sentence %}
                                 {% if word == flashcard.particle %}
                                     <span>_</span>
                                 {% else %}
@@ -48,9 +46,9 @@
                             {% endfor %}
                             </h3>
                             <p>{{ flashcard.english_meaning }}</p>
+                            
                         </div>                
                     </div>
-                    {% endfor %}
                 </div>
 
 
@@ -65,21 +63,22 @@
                 <div class="box"></div>
                 <div class="box"></div>
                 <div class="boxEnd">
+                    <a href='/fails' data-replace="fails" class="flow-btn"><p><span>Failures</span></p></a>   
                     <a href='/study' data-replace="study" class="flow-btn"><p><span>Study</span></p></a>   
                     <a href='/upload' data-replace="upload" class="flow-btn"><p><span>Upload</span></p></a>  
                     <a href="/" class="exit-btn">Exit</a>
                 </div>
                 
                 <div class="box" style="display: flex; justify-content: flex-end;">
-                    <div class="botonesJuegoLeft">
-                        <button class="botonJuego" id="word1" onclick="incrementScore('{{err1}}')">{{err1}}</p>
-                        <button class="botonJuego" id="word2" onclick="incrementScore('{{err2}}')">{{err2}}</p>
+                    <div class="buttonsGameLeft">
+                        <button class="buttonGame" id="word1" name="selected_word" value="{{ word1 }}">{{word1}}</button>
+                        <button class="buttonGame" id="word2" name="selected_word" value="{{ word2 }}">{{word2}}</button>
                     </div>
                 </div>
                 <div class="box">
-                    <div class="botonesJuegoRight">
-                        <button class="botonJuego"id="word3" onclick="incrementScore('{{err3}}')">{{err3}}</p>
-                        <button class="botonJuego" id="word4" onclick="incrementScore('{{wins}}')">{{wins}}</p>
+                    <div class="buttonsGameRight">                        
+                        <button class="buttonGame" id= "word3" name="selected_word" value="{{ word3 }}">{{word3}}</button>
+                        <button class="buttonGame" id="word4" name="selected_word" value="{{ word4 }}">{{word4}}</button>
                     </div>
                 </div>
                 <div class="box"></div>
@@ -87,33 +86,73 @@
             <p class="AlvaRonin">&copy; AlvaRonin 2023</p>
         </form>
     </main>
-   
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-/*  Your JavaScript code */
-   
-    var sessionId = getParameterByName("sessionId");
+<script>
 
-    function getParameterByName(name, url) {
-      if (!url) url = window.location.href;
-      name = name.replace(/[\[\]]/g, "\\$&");
-      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-          results = regex.exec(url);
-      if (!results) return null;
-      if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, " "));
+//  Your JavaScript code 
+
+document.addEventListener("DOMContentLoaded", function() {
+        const button1 = document.getElementById("word1");
+        const button2 = document.getElementById("word2");
+        const button3 = document.getElementById("word3");
+        const button4 = document.getElementById("word4");
+
+    // Generate a random number between 1 and 4
+    const correctButtonPosition = Math.floor(Math.random() * 4) + 1;
+
+    // Assign each button an ID
+    button1.setAttribute("data-position", 1);
+    button2.setAttribute("data-position", 2);
+    button3.setAttribute("data-position", 3);
+    button4.setAttribute("data-position", 4);
+
+    button1.addEventListener("click", function(event) {
+      event.preventDefault(); 
+      const selectedWord = button1.textContent;
+      incrementScore(selectedWord, 1);
+    });
+
+    button2.addEventListener("click", function(event) {
+      event.preventDefault(); 
+      const selectedWord = button2.textContent;
+      incrementScore(selectedWord, 2);
+    });
+
+    button3.addEventListener("click", function(event) {
+      event.preventDefault(); 
+      const selectedWord = button3.textContent;
+      incrementScore(selectedWord, 3);
+    });
+
+    button4.addEventListener("click", function(event) {
+      event.preventDefault(); 
+      const selectedWord = button4.textContent;
+      incrementScore(selectedWord, 4);
+    });
+
+    function incrementScore(selectedWord, particle) {
+        if (selectedWord === "{{ flashcard.particle }}") {
+            console.log("You win!");
+            // Make an AJAX request to increment the score
+            fetch(`/increment_score/?selected_word=${selectedWord}`)
+              .then(response => response.json())
+              .then(data => {
+                if (data.success) {
+                  console.log("Score incremented.");
+                } else {
+                  console.log("Error incrementing score.");
+                }
+            });
+        } else {
+          console.log("Try again.");
+          // Move the correct button to a new random position
+          const correctButton = document.querySelector(`[data-position="${correctButtonPosition}"]`);
+          correctButton.parentNode.insertBefore(correctButton, correctButton.parentNode.children[Math.floor(Math.random() * 4)]);
+        }
     }
+}); 
+
+
     
-    
-    function incrementScore(selectedWord) {
-        console.log('Incrementando Score')
-        console.log(selectedWord)
-        //let href = '/game/?selected_word=' + selectedWord
-        let href = '/game/?selected_word=' + selectedWord
-        console.log(href)
-        window.location.href = href
-        window.alert(href)
-    }
-    </script>
+</script>
 </body>
 </html>

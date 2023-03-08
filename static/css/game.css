@@ -36,6 +36,10 @@ h1 {
     margin-bottom: 1rem;
 }
 
+.strong {
+    font-weight: bolder;
+    color: darkred!important;
+}
 
 .form-game {
     background-color: rgb(245 245 245 / 95%);
@@ -53,8 +57,8 @@ h1 {
 }
 
 
-.correct{
-    color: #0bb105;
+.fails{
+    color: darkred;
     display: inline-block;
     font-size: 1em;
     font-weight: bolder;
@@ -84,6 +88,8 @@ h1 {
     height: 330px;
     border: 0.8px solid black;
     border-radius: 38px;
+    margin-left: auto;
+    margin-right: auto;
     border-bottom: 4px solid blue;
     border-right: 2px solid blue;
     overflow: hidden;
@@ -100,17 +106,19 @@ h1 {
 }
 
 #flashcards img {
-  width: 100%;
-  max-height: 200px;
-  object-fit: cover;
-  margin-bottom: 10px;
+    max-height: 68%;
+    max-width: 88%;
+    margin-bottom: 10px;
+    overflow: hidden;
 }
 
 #flashcards h3 {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
+  text-align: center;
   color: ghostwhite;
   margin-bottom: 10px;
+  width: max-content;
 }
 
 #flashcards h3 span {
@@ -123,23 +131,23 @@ h1 {
   color: blanchedalmond;
 }
 
-.botonesJuegoLeft{
+.buttonsGameLeft{
     position: fixed;
     display: grid;
     border-radius: 0.5rem; 
     justify-content: left;
 }
 
-.botonesJuegoRight{
+.buttonsGameRight{
     position: fixed;
     display: grid;
     border-radius: 0.5rem;
     justify-content: right;
 }
 
-.botonJuego{
+.buttonGame{
     width: 80%;
-    height: 50%;
+    height: 65%;
     margin: 11px!important;
     color: #f39c12;
     border-color: #212529;
@@ -154,7 +162,7 @@ h1 {
     transition: all .2s ease;
 }
 
-.botonJuego:hover {
+.buttonGame:hover {
     background: #212529;
     border-color: #0d7af6;
     color: #ffffff;
@@ -162,7 +170,7 @@ h1 {
     cursor: pointer;
 }
   
-.botonJuego:active {
+.buttonGame:active {
     background: #0dd3f6;
     border: 0;
     transition: all .2s ease;
@@ -223,35 +231,38 @@ h1 {
 .nav-container {
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
+    font-size: 20px;
 }
   
 .nav-menu {
+    display: flex;
+    overflow-x: hidden;
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
 }
   
-.nav-item {
-    margin-right: 20px;
+.nav-menu li {
+    padding: 5px;
     cursor: pointer;
 }
   
-.nav-item.active {
-    font-weight: bold;
+.nav-menu li.active,
+.nav-menu li.visible {
+    display: block;
+    background-color: #ccc;
+} 
+  
+.nav-menu li.hidden {
+    display: none;
 }
   
 .nav-arrow {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
+    font-size: 30px;
     cursor: pointer;
 }
-  
-.nav-arrow-left {
-    margin-right: 10px;
-}
+    
   
 .content {
     display: none;
