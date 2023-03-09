@@ -23,13 +23,13 @@ urlpatterns = [
     path('forgot/', views.forgot, name= 'forgot'),
     path('game/', views.game_view, name= 'game'), 
     #path('game/<flashcard>/<particle>/', views.game, name= 'game_part'), 
-    path('increment_score/<selected_word>', views.increment_score, name='increment_score'),
+    path('increment_score/', views.increment_score, name='increment_score'),
     path('api/user', views.get_user, name='get_user'),   
     path('', views.login_view, name= 'login'),
     path('', views.logout_view, name= 'logout'),
     path('register/', views.register, name= 'register'),
     path('study/', views.study, name= 'study'),
-    path('fails/', views.study, name= 'study'),
+    path('fails/', views.fails, name= 'fails'),
     path('upload/', views.upload, name= 'upload'),
     path('admin/', admin.site.urls)
 ]

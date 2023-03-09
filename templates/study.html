@@ -14,7 +14,7 @@
     crossorigin="anonymous">
 </head>
 <body class="text-center">  
-    <main class="form-game w-100 m-auto" style="transform: scale(0.8);max-height: fit-content;margin-top: -4rem!important;">
+    <main class="form-game w-100 m-auto" style="transform: scale(0.9);max-height: fit-content;margin-top: -1rem!important;">
         <form>
             <h1 style="margin-bottom: 0.5rem;">Study Session</h1>
             <p>Let's improve your skills. がんばって!</p>
@@ -166,7 +166,8 @@
               </div>
               
                 <div class="boxEnd">
-                  <a href='/game' data-replace="game" class="flow-btn"><p><span>Game</span></p></a>   
+                  <a href='/game' data-replace="game" class="flow-btn"><p><span>Game</span></p></a>
+                  <a href='/fails' data-replace="fails" class="flow-btn"><p><span>Failures</span></p></a>      
                   <a href='/upload' data-replace="upload" class="flow-btn"><p><span>Upload</span></p></a>  
                   <a href="/" class="exit-btn" style="margin-left: 5.8rem; margin-bottom: 2rem;">Exit</a>
                 </div>                
@@ -177,6 +178,8 @@
   <script>
     const menuItems = document.querySelectorAll('.nav-menu .content');
     const nav = document.querySelector('.nav-menu');
+    const containerContent = document.querySelector('.content-container .content');
+    const container = document.querySelector('.content-container');
     const leftArrow = document.querySelector('.nav-arrow-left');
     const rightArrow = document.querySelector('.nav-arrow-right');
     const itemWidth = menuItems[0].offsetWidth;
@@ -202,12 +205,30 @@
       });
     }
 
+    function updateCont() {
+      menuItems.forEach((content, index) => {
+        if (index >= currentIndex && index < currentIndex + visibleItems) {
+          content.classList.remove('hidden');
+          if (index === currentIndex) {
+            content.classList.add('active');
+          } else {
+            content.classList.remove('active');
+          }
+        } else {
+          content.classList.add('hidden');
+        }
+      });
+    }
+
+
     updateNav();
+    updateCont();
 
     leftArrow.addEventListener('click', () => {
       if (currentIndex > 0) {
         currentIndex -= 1;
         updateNav();
+        updateCont();
       }
     });
 
@@ -215,6 +236,7 @@
       if (currentIndex < maxIndex) {
         currentIndex += 1;
         updateNav();
+        updateCont();
       }
     });
 
@@ -227,7 +249,7 @@
       menuItems[index].classList.add('active');
       contents[index].classList.add('active');
 
-      // Scrape content from the website
+      /*/ Scrape content from the website
       if (index === 0) {
         // Get the information contained between <a> Grammar Bank </a> to <a> Grammar Bank </a>
         fetch('https://www.japanesepod101.com/blog/japanese-particles-guide-wa-ni-ga-wo-and-more/')
@@ -241,7 +263,7 @@
             console.log(content);
           })
           .catch(error => console.log(error));
-      }
+      }*/
     }
 
   </script>

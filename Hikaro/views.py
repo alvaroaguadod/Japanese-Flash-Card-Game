@@ -16,78 +16,34 @@ from random import shuffle
 
 
 #Function that increments the score when the user chooses the correct option.
-def game(request, flashcard, particle):
-    print('View Gamne!!!!!')
-    user_id = request.session.get('user_id')
-    if user_id:
-        try:
-            match = Match.objects.get(user_id=user_id)
-            user = match.user_id
-        except Match.DoesNotExist:
-            # create a new user with the given id
-            match = Match.objects.create(user_id=user_id, username="Anonymous")
-            user = match.user_id
+def get_flashcard_and_words(request, flashcard, particle):
+    l_words = ['は', 'が', 'を', 'も', 'に', 'へ', 'で', 'から', 'まで', 'と', 'や', 'の', 'ね', 'よ']
+    l_err = []
+    used_indices = []
+    current_round = request.session.get('current_round', 0) # get the current round from the session
+    score = request.session.get('score', 0) # get the current score from the session
+    
+    # Render the game.html template with the flashcards data
+    num_flashcards = Flashcard.objects.count()
+    num_selected = random.randint(1, num_flashcards)
+    flashcard = Flashcard.objects.get(pk=num_selected)
+    wins = flashcard.particle
+    print(flashcard.english_meaning)
+    print('wins:' + wins)
+    print(flashcard.english_meaning)
 
-        # retrieve score and round from the Match model for the current user
-        try:
-            score = match.score
-            current_round = match.current_round
-        except Match.DoesNotExist:
-            # create a new Match object for the current user
-            match = Match(user_id=user_id, username=user.username, score=0, current_round=0)
-            score = 0
-            current_round = 0
+    used_indices.append(wins)
 
-        l_err = []
-        flashcards = ''
-        l_words = ['は','が','を','も','に','へ', 'で', 'から', 'まで', 'と', 'や', 'の', 'ね', 'よ']
-        used_indices = [] # keep track of used indices
+    #Generate non correct options
+    while len(l_err) != 3:
+        num = random.randint(0, len(l_words) - 1)
+        if l_words[num] != wins and num not in used_indices:
+            l_err.append(l_words[num])
+            used_indices.append(num)
 
-        # generate the winning word
-        wins = random.randint(0,len(l_words)-1)
-        print(wins)
-        used_indices.append(wins)
-        obj_wins = l_words[wins]
-        print(obj_wins)
-
-        # generate the incorrect words
-        while len(l_err) != 3:
-            num = random.randint(0,len(l_words)-1)
-            if num != wins and num not in used_indices:
-                l_err.append(l_words[num])
-                used_indices.append(num)
-
-        # check if the selected word matches the winning word
-        if request.GET.get('selected_word') == obj_wins:
-
-        # update the score and round in the Match model for the current user
-            match.score = score
-            match.current_round = current_round
-            match.save()
-
-            # retrieve flashcards from database
-            flashcards = Flashcard.objects.all()
-            flashcards_data = []
-            for flashcard in flashcards:
-                flashcards_data.append({
-                    'japanese_sentence': flashcard.japanese_sentence,
-                    'particle': flashcard.particle,
-                    'english_meaning': flashcard.english_meaning,
-                    'image_name': flashcard.image
-
-                })
-                print(flashcard.image.url)
-
-            return render(request, 'game.html', {
-                'message': 'New message from the view',
-                'err1':l_err[0],
-                'err2':l_err[1],
-                'err3':l_err[2],
-                'wins':obj_wins,
-                'score': score,
-                'current_round': current_round,
-                'flashcards': flashcards
-            })
+    #Shuffle the list of words (including the correct one)
+    words = [wins] + l_err
+    shuffle(words)
         
 #Function that reads the sentences from the JSON file and separates particle from sentences   (esta llega a funcionar?)
 
@@ -122,12 +78,11 @@ def get_flashcards(round):
             flashcards.append(Flashcard(flashcard["image"], flashcard["japanese"], flashcard["english"]))
     return flashcards
 
-
 def game_view(request):
     l_words = ['は', 'が', 'を', 'も', 'に', 'へ', 'で', 'から', 'まで', 'と', 'や', 'の', 'ね', 'よ']
     l_err = []
     used_indices = []
-    current_round = request.session.get('current_round', 1) # get the current round from the session
+    current_round = request.session.get('current_round', 0) # get the current round from the session
     score = request.session.get('score', 0) # get the current score from the session
     
     # Render the game.html template with the flashcards data
@@ -152,15 +107,17 @@ def game_view(request):
     words = [wins] + l_err
     shuffle(words)
 
-    # Call increment_score function to check if the selected word is correct
+    # Check if the user has selected a word
     selected_word = request.GET.get('selected_word', '')
-    result = increment_score(selected_word, flashcard)
+    if selected_word:
+        # Call increment_score to check if the selected word is correct
+        is_correct = increment_score(request, selected_word, flashcard.particle)
 
-    # Update score and current round based on the result of increment_score function
-    if result == True:
-        score += 1
-    current_round += 1
-
+        # Update score and current round based on the result of increment_score
+        if is_correct:
+            score += 1
+        current_round += 1
+    
     # Save the updated score and current round to the session
     request.session['score'] = score
     request.session['current_round'] = current_round
@@ -175,15 +132,17 @@ def game_view(request):
                                           'score': score})
 
 
-def increment_score(selected_word, flashcard):
-    # Check if the selected word is the same as the particle of the flashcard,
-    # return True if it is, return False if it is not
-    if selected_word == flashcard.particle:
-        return True
+def increment_score(request):
+ if request.method == 'POST':
+    selected_word = request.POST.get('selectedWord')
+    particle = request.POST.get('particle')
+    if selected_word == particle:
+        is_correct = True
+        return HttpResponse('Correct!')
     else:
-        return False
+        is_correct = False
+        return HttpResponse('Wrong. Try Again!')
 
-       
 
 def login_view(request):
     if request.method == 'POST':
@@ -307,6 +266,13 @@ def study(request):
     return render(request, 'study.html', {
         'message': 'New message from the view'
     })
+
+
+def fails(request):
+    return render(request, 'fails.html', {
+        'message': 'New message from the view'
+    })
+
 
 def upload(request):
     if request.method == 'POST':

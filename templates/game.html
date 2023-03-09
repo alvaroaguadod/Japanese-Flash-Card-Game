@@ -18,7 +18,7 @@
 </head>
 <body class="text-center">  
 
-    <main class="form-game w-100 m-auto">
+    <main class="form-game w-100 m-auto" style="max-height: fit-content;margin-top: 2rem!important;">
         <form method="GET" action="{% url 'game' %}">
             <h1 style="margin-bottom: 0.5rem;"> Japanese Particles Quiz</h1>
             <p>Let's test your skills. がんばって!</p>
@@ -26,7 +26,7 @@
             <div class= "game-board">
                 <div class="box">
                     <h5>ROUND <br>{{current_round}}</h5>
-                    <p class="fails">Wrong: <br>{{score}}</p>
+                    <p class="fails">Score: {{ score }}</p>
                 </div>
 
                 <div class="box">  
@@ -129,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function() {
       incrementScore(selectedWord, 4);
     });
 
+
     function incrementScore(selectedWord, particle) {
         if (selectedWord === "{{ flashcard.particle }}") {
             console.log("You win!");
@@ -150,9 +151,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 }); 
-
-
-    
 </script>
 </body>
 </html>
